@@ -168,6 +168,31 @@ app.get('/account', (req, res) => {
     }  
 })
 
+// display edit account form
+app.get('/account/edit/:id', (req, res) => {
+    if (res.locals.isLoggedIn) {
+        if (parseInt(req.params.id) === req.session.userID) {
+
+            let sql = 'SELECT * FROM profile WHERE u_id = ?'
+            connection.query(
+                sql, [req.session.userID], (error, results) => {
+                    res.render('edit-account', {profile: results[0]})
+                }
+            )
+
+        } else {
+            res.redirect(`/account/edit/${req.session.userID}`)
+        }
+    } else {
+        res.redirect('/login')
+    }
+})
+
+// update account
+app.post('/account/edit/:id', (req, res) => {
+
+})
+
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
     console.log(`app is running on PORT ${PORT}`)
