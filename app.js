@@ -2,6 +2,7 @@ import express from 'express'
 import mysql from 'mysql'
 import bcrypt from 'bcrypt'
 import session from 'express-session'
+import multer from 'multer'
 
 const app = express()
 const connection = mysql.createConnection({
@@ -10,6 +11,8 @@ const connection = mysql.createConnection({
     password: '',
     database: 'posty'
 })
+
+const upload = multer({dest: 'public/uploads/'})
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
@@ -189,7 +192,42 @@ app.get('/account/edit/:id', (req, res) => {
 })
 
 // update account
-app.post('/account/edit/:id', (req, res) => {
+app.post('/account/edit/:id', upload.single('picture'), (req, res) => {
+
+    const account = {
+        fullname: req.body.name,
+        picture: undefined
+    }
+
+    let sql
+
+    if (req.file) {
+        account.picture = req.file.filename
+        sql = 'UPDATE profile SET fullname = ?, picture = ? WHERE u_id = ?'
+        connection.query(
+            sql,
+            [
+                account.fullname,
+                account.picture,
+                req.session.userID
+            ],
+            (error, results) => {
+                res.redirect('/account')
+            }
+        )
+    } else {
+        sql = 'UPDATE profile SET fullname = ? WHERE u_id = ?'
+        connection.query(
+            sql, 
+            [   
+                account.fullname,
+                req.session.userID
+            ], 
+            (error, results) => {
+                res.redirect('/account')
+            }
+        )
+    }
 
 })
 
