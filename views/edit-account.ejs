@@ -1,19 +1,18 @@
 <%- include('partials/header') %>
 
     <main class="container" id="edit-account">
-        <form action="/account/edit/<%= profile.u_id %>" method="post">
+        <form action="/account/edit/<%= profile.u_id %>" method="post" enctype="multipart/form-data">
             <h1>Edit account</h1>
-            <div>
-                <label for="">Full Name</label>
-                <input type="text" name="name" id="" value="<%= profile.fullname %>" required>
-            </div>
-            <div>
-                <label for="">Change Photo</label>
-                <input type="file" name="picture" id="">
-            </div>
+            
+            <label for="">Full Name</label>
+            <input type="text" name="name" id="" value="<%= profile.fullname %>" required>
+            
+            <label for="">Change Photo</label>
+            <input type="file" name="picture" id="">
+            
             <div>
                 <a href="/account">Cancel</a>
-                <input type="submit" value="Update Profile">
+                <input type="submit" value="Update">
             </div>
         </form>
     </main>
