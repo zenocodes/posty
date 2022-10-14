@@ -154,3 +154,49 @@ nav a:hover {
     background-color: #008000;
     border: 1px solid #008000;
 }
+
+#dashboard {
+    width: 60%;
+    margin: 0 auto;
+}
+
+#dashboard form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+#dashboard form textarea {
+    font-size: 19px;
+    padding: 8px;
+}
+
+#dashboard form input {
+    width: max-content;
+    font-size: 19px;
+    padding: 4px 8px;
+    color: #fff;
+    background-color: #1863d6;
+    border: 1px solid #1863d6;
+    border-radius: 5px;
+}
+
+#dashboard .post {
+    margin-bottom: 8px;
+}
+
+#dashboard .post div {
+    display: flex;
+}
+
+#dashboard .post div a {
+    color: #1863d6;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+#dashboard .post div p {
+    color: #555555;
+}
+
