@@ -1,7 +1,38 @@
 <%- include('partials/header') %>
 
-<main class="container">
-    <h1>Dashboard</h1>
+<main class="container" id="dashboard">
+    <form action="/create-post" method="post">
+        <textarea name="content" id="post" cols="30" rows="3" maxlength="140" required placeholder="Write something..."></textarea>
+        <small id="counter"></small>
+        <input type="submit" value="Create Post">
+    </form>
+    <div id="posts">
+
+        <% posts.forEach(post => { %>
+
+            <div class="post">
+                <h3><%= post.fullname.split(' ')[0] %></h3>
+                <p><%= post.content %></p>
+                <div>
+                    <a href="">Like</a>
+                    <p><%= post.date_created.toString().split(' GMT')[0] %></p>
+                </div>
+            </div>
+
+        <% }) %>
+
+    </div>
 </main>
+
+<script>
+
+    let post = document.querySelector('#post')
+    let counter = document.querySelector('#counter')
+    post.addEventListener('keydown', () => {
+        let charLeft = 139 - post.value.length
+        counter.textContent = `${charLeft} characters left`
+    })
+
+</script>
 
 <%- include('partials/footer') %>
